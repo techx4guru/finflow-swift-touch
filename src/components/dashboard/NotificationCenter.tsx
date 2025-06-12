@@ -1,9 +1,8 @@
-
 import { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Bell, Check, Clock, Shield, Card as CardIcon, Send } from 'lucide-react';
+import { Bell, Check, Clock, Shield, CreditCard as CardIcon, Send } from 'lucide-react';
 
 const NotificationCenter = () => {
   const [notifications, setNotifications] = useState([

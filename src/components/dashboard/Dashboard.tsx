@@ -1,6 +1,5 @@
-
 import { useState } from 'react';
-import { Home, Card as CardIcon, Clock, Send, Settings, Bell } from 'lucide-react';
+import { Home, CreditCard as CardIcon, Clock, Send, Settings, Bell } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import AccountOverview from './AccountOverview';
 import TransactionHistory from './TransactionHistory';
