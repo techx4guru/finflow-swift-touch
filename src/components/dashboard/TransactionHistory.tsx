@@ -47,30 +47,30 @@ const TransactionHistory = () => {
   };
 
   return (
-    <div className="p-4 pb-20 space-y-6 animate-fade-in">
-      {/* Header */}
+    <div className="px-3 sm:px-4 pt-3 pb-24 space-y-4 sm:space-y-6 animate-fade-in max-w-md mx-auto">
+      {/* Header - Mobile optimized */}
       <Card className="gradient-primary text-white border-0">
-        <CardHeader>
-          <CardTitle className="text-white">Transaction History</CardTitle>
+        <CardHeader className="pb-3">
+          <CardTitle className="text-white text-lg">Transaction History</CardTitle>
         </CardHeader>
       </Card>
 
-      {/* Filters */}
+      {/* Filters - Mobile optimized */}
       <Card>
-        <CardContent className="p-4 space-y-4">
+        <CardContent className="p-3 space-y-3">
           <div className="relative">
             <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
             <Input
               placeholder="Search transactions..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="pl-10"
+              className="pl-10 text-sm"
             />
           </div>
           
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 gap-3">
             <Select value={filterType} onValueChange={setFilterType}>
-              <SelectTrigger>
+              <SelectTrigger className="text-sm">
                 <SelectValue placeholder="Transaction Type" />
               </SelectTrigger>
               <SelectContent>
@@ -81,7 +81,7 @@ const TransactionHistory = () => {
             </Select>
 
             <Select value={filterPeriod} onValueChange={setFilterPeriod}>
-              <SelectTrigger>
+              <SelectTrigger className="text-sm">
                 <SelectValue placeholder="Time Period" />
               </SelectTrigger>
               <SelectContent>
@@ -95,37 +95,37 @@ const TransactionHistory = () => {
         </CardContent>
       </Card>
 
-      {/* Transaction List */}
-      <div className="space-y-3">
+      {/* Transaction List - Mobile optimized */}
+      <div className="space-y-2">
         {filteredTransactions.map((transaction, index) => (
           <Card key={transaction.id} className="hover:shadow-md transition-shadow animate-slide-up" 
-                style={{ animationDelay: `${index * 0.1}s` }}>
-            <CardContent className="p-4">
+                style={{ animationDelay: `${index * 0.05}s` }}>
+            <CardContent className="p-3">
               <div className="flex items-center justify-between">
-                <div className="flex items-center space-x-3">
-                  <div className={`w-12 h-12 rounded-full flex items-center justify-center ${
+                <div className="flex items-center space-x-3 min-w-0 flex-1">
+                  <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
                     transaction.type === 'credit' ? 'bg-green-100 text-green-600' : 'bg-red-100 text-red-600'
                   }`}>
                     {transaction.type === 'credit' ? 
-                      <ArrowDown className="w-6 h-6" /> : 
-                      <ArrowUp className="w-6 h-6" />
+                      <ArrowDown className="w-5 h-5" /> : 
+                      <ArrowUp className="w-5 h-5" />
                     }
                   </div>
-                  <div className="flex-1">
-                    <p className="font-medium text-foreground">{transaction.description}</p>
+                  <div className="flex-1 min-w-0">
+                    <p className="font-medium text-foreground text-sm truncate">{transaction.description}</p>
                     <div className="flex items-center space-x-2 mt-1">
-                      <Badge variant="secondary" className={categoryColors[transaction.category as keyof typeof categoryColors]}>
+                      <Badge variant="secondary" className={`text-xs ${categoryColors[transaction.category as keyof typeof categoryColors]}`}>
                         {transaction.category}
                       </Badge>
                     </div>
-                    <p className="text-sm text-muted-foreground flex items-center mt-1">
-                      <Calendar className="w-4 h-4 mr-1" />
+                    <p className="text-xs text-muted-foreground flex items-center mt-1">
+                      <Calendar className="w-3 h-3 mr-1" />
                       {transaction.date} at {transaction.time}
                     </p>
                   </div>
                 </div>
-                <div className="text-right">
-                  <p className={`font-bold text-lg ${
+                <div className="text-right ml-2">
+                  <p className={`font-bold text-sm ${
                     transaction.type === 'credit' ? 'text-green-600' : 'text-red-600'
                   }`}>
                     {transaction.type === 'credit' ? '+' : ''}{formatCurrency(transaction.amount)}
@@ -139,8 +139,8 @@ const TransactionHistory = () => {
 
       {filteredTransactions.length === 0 && (
         <Card>
-          <CardContent className="p-8 text-center">
-            <p className="text-muted-foreground">No transactions found matching your criteria.</p>
+          <CardContent className="p-6 text-center">
+            <p className="text-muted-foreground text-sm">No transactions found matching your criteria.</p>
           </CardContent>
         </Card>
       )}

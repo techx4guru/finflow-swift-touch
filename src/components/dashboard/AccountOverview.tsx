@@ -51,14 +51,14 @@ const AccountOverview = () => {
   };
 
   return (
-    <div className="p-4 pb-20 space-y-6 animate-fade-in">
-      {/* Total Balance Card */}
+    <div className="px-3 sm:px-4 pt-3 pb-24 space-y-4 sm:space-y-6 animate-fade-in max-w-md mx-auto">
+      {/* Total Balance Card - Mobile optimized */}
       <Card className="gradient-primary text-white border-0 shadow-lg">
-        <CardHeader>
+        <CardHeader className="pb-3">
           <div className="flex items-center justify-between">
             <div>
-              <CardDescription className="text-white/80">Total Balance</CardDescription>
-              <CardTitle className="text-3xl font-bold">
+              <CardDescription className="text-white/80 text-sm">Total Balance</CardDescription>
+              <CardTitle className="text-2xl sm:text-3xl font-bold">
                 {showBalance ? formatCurrency(totalBalance) : '••••••'}
               </CardTitle>
             </div>
@@ -66,43 +66,43 @@ const AccountOverview = () => {
               variant="ghost"
               size="sm"
               onClick={() => setShowBalance(!showBalance)}
-              className="text-white hover:bg-white/20"
+              className="text-white hover:bg-white/20 p-2"
             >
               {showBalance ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
             </Button>
           </div>
         </CardHeader>
-        <CardContent>
-          <div className="flex space-x-4 mt-4">
-            <Button variant="secondary" size="sm" className="flex-1">
-              <ArrowUp className="w-4 h-4 mr-2" />
+        <CardContent className="pt-0">
+          <div className="grid grid-cols-3 gap-2 mt-3">
+            <Button variant="secondary" size="sm" className="text-xs py-2">
+              <ArrowUp className="w-3 h-3 mr-1" />
               Send
             </Button>
-            <Button variant="secondary" size="sm" className="flex-1">
-              <ArrowDown className="w-4 h-4 mr-2" />
+            <Button variant="secondary" size="sm" className="text-xs py-2">
+              <ArrowDown className="w-3 h-3 mr-1" />
               Request
             </Button>
-            <Button variant="secondary" size="sm" className="flex-1">
-              <Plus className="w-4 h-4 mr-2" />
-              Add Money
+            <Button variant="secondary" size="sm" className="text-xs py-2">
+              <Plus className="w-3 h-3 mr-1" />
+              Add
             </Button>
           </div>
         </CardContent>
       </Card>
 
-      {/* Accounts List */}
-      <div className="space-y-4">
-        <h2 className="text-lg font-semibold text-foreground">Your Accounts</h2>
+      {/* Accounts List - Mobile optimized */}
+      <div className="space-y-3">
+        <h2 className="text-lg font-semibold text-foreground px-1">Your Accounts</h2>
         {accounts.map((account) => (
           <Card key={account.id} className="hover:shadow-md transition-shadow">
-            <CardContent className="p-4">
+            <CardContent className="p-3">
               <div className="flex items-center justify-between">
-                <div>
-                  <h3 className="font-medium text-foreground">{account.name}</h3>
-                  <p className="text-sm text-muted-foreground">{account.accountNumber}</p>
+                <div className="min-w-0 flex-1">
+                  <h3 className="font-medium text-foreground text-sm truncate">{account.name}</h3>
+                  <p className="text-xs text-muted-foreground">{account.accountNumber}</p>
                 </div>
-                <div className="text-right">
-                  <p className="font-semibold text-foreground">
+                <div className="text-right ml-2">
+                  <p className="font-semibold text-foreground text-sm">
                     {showBalance ? formatCurrency(account.balance) : '••••••'}
                   </p>
                   <Badge variant="secondary" className="text-xs">
@@ -115,31 +115,31 @@ const AccountOverview = () => {
         ))}
       </div>
 
-      {/* Recent Transactions */}
-      <div className="space-y-4">
-        <div className="flex items-center justify-between">
-          <h2 className="text-lg font-semibold text-foreground">Recent Transactions</h2>
-          <Button variant="ghost" size="sm">View All</Button>
+      {/* Recent Transactions - Mobile optimized */}
+      <div className="space-y-3">
+        <div className="flex items-center justify-between px-1">
+          <h2 className="text-lg font-semibold text-foreground">Recent</h2>
+          <Button variant="ghost" size="sm" className="text-xs">View All</Button>
         </div>
         <div className="space-y-2">
           {recentTransactions.map((transaction) => (
-            <Card key={transaction.id} className="p-4">
+            <Card key={transaction.id} className="p-3">
               <div className="flex items-center justify-between">
-                <div className="flex items-center space-x-3">
-                  <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
+                <div className="flex items-center space-x-3 min-w-0 flex-1">
+                  <div className={`w-8 h-8 rounded-full flex items-center justify-center ${
                     transaction.type === 'credit' ? 'bg-green-100 text-green-600' : 'bg-red-100 text-red-600'
                   }`}>
                     {transaction.type === 'credit' ? 
-                      <ArrowDown className="w-5 h-5" /> : 
-                      <ArrowUp className="w-5 h-5" />
+                      <ArrowDown className="w-4 h-4" /> : 
+                      <ArrowUp className="w-4 h-4" />
                     }
                   </div>
-                  <div>
-                    <p className="font-medium text-foreground">{transaction.description}</p>
-                    <p className="text-sm text-muted-foreground">{transaction.date}</p>
+                  <div className="min-w-0 flex-1">
+                    <p className="font-medium text-foreground text-sm truncate">{transaction.description}</p>
+                    <p className="text-xs text-muted-foreground">{transaction.date}</p>
                   </div>
                 </div>
-                <p className={`font-semibold ${
+                <p className={`font-semibold text-sm ml-2 ${
                   transaction.type === 'credit' ? 'text-green-600' : 'text-red-600'
                 }`}>
                   {transaction.type === 'credit' ? '+' : ''}{formatCurrency(transaction.amount)}

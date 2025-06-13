@@ -64,16 +64,16 @@ const TransferMoney = () => {
   };
 
   return (
-    <div className="p-4 pb-20 space-y-6 animate-fade-in">
-      {/* Header */}
+    <div className="px-3 sm:px-4 pt-3 pb-24 space-y-4 sm:space-y-6 animate-fade-in max-w-md mx-auto">
+      {/* Header - Mobile optimized */}
       <Card className="gradient-primary text-white border-0">
-        <CardHeader>
-          <CardTitle className="text-white">Transfer Money</CardTitle>
+        <CardHeader className="pb-3">
+          <CardTitle className="text-white text-lg">Transfer Money</CardTitle>
         </CardHeader>
       </Card>
 
-      {/* Quick Actions */}
-      <div className="grid grid-cols-2 gap-4">
+      {/* Quick Actions - Mobile optimized */}
+      <div className="grid grid-cols-2 gap-3">
         {quickActions.map((action) => {
           const IconComponent = action.icon;
           return (
@@ -84,41 +84,41 @@ const TransferMoney = () => {
               }`}
               onClick={() => setTransferType(action.id)}
             >
-              <CardContent className="p-4 text-center">
-                <IconComponent className={`w-8 h-8 mx-auto mb-2 ${
+              <CardContent className="p-3 text-center">
+                <IconComponent className={`w-6 h-6 mx-auto mb-2 ${
                   transferType === action.id ? 'text-primary' : 'text-muted-foreground'
                 }`} />
-                <h3 className="font-medium text-sm">{action.title}</h3>
-                <p className="text-xs text-muted-foreground mt-1">{action.description}</p>
+                <h3 className="font-medium text-xs">{action.title}</h3>
+                <p className="text-xs text-muted-foreground mt-1 leading-tight">{action.description}</p>
               </CardContent>
             </Card>
           );
         })}
       </div>
 
-      {/* Transfer Form */}
+      {/* Transfer Form - Mobile optimized */}
       {transferType && (
         <Card className="animate-slide-up">
-          <CardHeader>
-            <CardTitle className="flex items-center">
-              <Send className="w-5 h-5 mr-2" />
+          <CardHeader className="pb-3">
+            <CardTitle className="flex items-center text-base">
+              <Send className="w-4 h-4 mr-2" />
               {quickActions.find(a => a.id === transferType)?.title}
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
             {/* From Account */}
             <div>
-              <Label htmlFor="from-account">From Account</Label>
+              <Label htmlFor="from-account" className="text-sm">From Account</Label>
               <Select value={fromAccount} onValueChange={setFromAccount}>
-                <SelectTrigger>
+                <SelectTrigger className="text-sm">
                   <SelectValue placeholder="Select source account" />
                 </SelectTrigger>
                 <SelectContent>
                   {accounts.map((account) => (
                     <SelectItem key={account.id} value={account.id}>
                       <div className="flex justify-between w-full">
-                        <span>{account.name} {account.number}</span>
-                        <span className="text-muted-foreground ml-4">
+                        <span className="text-sm">{account.name} {account.number}</span>
+                        <span className="text-muted-foreground ml-2 text-xs">
                           {formatCurrency(account.balance)}
                         </span>
                       </div>
@@ -130,16 +130,16 @@ const TransferMoney = () => {
 
             {/* Amount */}
             <div>
-              <Label htmlFor="amount">Amount</Label>
+              <Label htmlFor="amount" className="text-sm">Amount</Label>
               <div className="relative">
-                <span className="absolute left-3 top-3 text-muted-foreground">$</span>
+                <span className="absolute left-3 top-3 text-muted-foreground text-sm">$</span>
                 <Input
                   id="amount"
                   type="number"
                   placeholder="0.00"
                   value={amount}
                   onChange={(e) => setAmount(e.target.value)}
-                  className="pl-8"
+                  className="pl-8 text-sm"
                 />
               </div>
             </div>
@@ -147,7 +147,7 @@ const TransferMoney = () => {
             {/* Recipient */}
             {transferType !== 'internal' && (
               <div>
-                <Label htmlFor="recipient">
+                <Label htmlFor="recipient" className="text-sm">
                   {transferType === 'mobile' ? 'Phone Number' : 'Recipient'}
                 </Label>
                 <Input
@@ -161,6 +161,7 @@ const TransferMoney = () => {
                   }
                   value={recipient}
                   onChange={(e) => setRecipient(e.target.value)}
+                  className="text-sm"
                 />
               </div>
             )}
@@ -168,15 +169,15 @@ const TransferMoney = () => {
             {/* To Account (Internal Transfer) */}
             {transferType === 'internal' && (
               <div>
-                <Label htmlFor="to-account">To Account</Label>
+                <Label htmlFor="to-account" className="text-sm">To Account</Label>
                 <Select value={recipient} onValueChange={setRecipient}>
-                  <SelectTrigger>
+                  <SelectTrigger className="text-sm">
                     <SelectValue placeholder="Select destination account" />
                   </SelectTrigger>
                   <SelectContent>
                     {accounts.filter(account => account.id !== fromAccount).map((account) => (
                       <SelectItem key={account.id} value={account.id}>
-                        {account.name} {account.number}
+                        <span className="text-sm">{account.name} {account.number}</span>
                       </SelectItem>
                     ))}
                   </SelectContent>
@@ -186,21 +187,22 @@ const TransferMoney = () => {
 
             {/* Memo */}
             <div>
-              <Label htmlFor="memo">Memo (Optional)</Label>
+              <Label htmlFor="memo" className="text-sm">Memo (Optional)</Label>
               <Input
                 id="memo"
                 placeholder="What's this for?"
                 value={memo}
                 onChange={(e) => setMemo(e.target.value)}
+                className="text-sm"
               />
             </div>
 
             {/* Transfer Summary */}
             {amount && fromAccount && (
               <Card className="bg-muted/50">
-                <CardContent className="p-4">
-                  <h4 className="font-medium mb-2">Transfer Summary</h4>
-                  <div className="space-y-2 text-sm">
+                <CardContent className="p-3">
+                  <h4 className="font-medium mb-2 text-sm">Transfer Summary</h4>
+                  <div className="space-y-1 text-sm">
                     <div className="flex justify-between">
                       <span>Amount:</span>
                       <span className="font-medium">${amount}</span>
@@ -222,13 +224,13 @@ const TransferMoney = () => {
             <Button 
               onClick={handleTransfer} 
               disabled={isLoading}
-              className="w-full h-12"
+              className="w-full h-12 text-sm"
             >
               {isLoading ? (
-                <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
               ) : (
                 <>
-                  <Send className="w-5 h-5 mr-2" />
+                  <Send className="w-4 h-4 mr-2" />
                   Send ${amount || '0.00'}
                 </>
               )}

@@ -109,17 +109,17 @@ const NotificationCenter = () => {
   };
 
   return (
-    <div className="p-4 pb-20 space-y-6 animate-fade-in">
-      {/* Header */}
+    <div className="px-3 sm:px-4 pt-3 pb-24 space-y-4 sm:space-y-6 animate-fade-in max-w-md mx-auto">
+      {/* Header - Mobile optimized */}
       <Card className="gradient-primary text-white border-0">
-        <CardHeader>
+        <CardHeader className="pb-3">
           <div className="flex items-center justify-between">
-            <CardTitle className="text-white flex items-center">
-              <Bell className="w-6 h-6 mr-2" />
+            <CardTitle className="text-white flex items-center text-lg">
+              <Bell className="w-5 h-5 mr-2" />
               Notifications
             </CardTitle>
             {unreadCount > 0 && (
-              <Badge variant="secondary" className="bg-white text-primary">
+              <Badge variant="secondary" className="bg-white text-primary text-xs">
                 {unreadCount} new
               </Badge>
             )}
@@ -130,15 +130,15 @@ const NotificationCenter = () => {
       {/* Mark All as Read */}
       {unreadCount > 0 && (
         <div className="flex justify-end">
-          <Button variant="outline" size="sm" onClick={markAllAsRead}>
-            <Check className="w-4 h-4 mr-2" />
+          <Button variant="outline" size="sm" onClick={markAllAsRead} className="text-xs">
+            <Check className="w-3 h-3 mr-1" />
             Mark all as read
           </Button>
         </div>
       )}
 
-      {/* Notifications List */}
-      <div className="space-y-3">
+      {/* Notifications List - Mobile optimized */}
+      <div className="space-y-2">
         {notifications.map((notification, index) => {
           const IconComponent = notification.icon;
           
@@ -148,20 +148,20 @@ const NotificationCenter = () => {
               className={`cursor-pointer transition-all hover:shadow-md animate-slide-up ${
                 !notification.isRead ? 'ring-1 ring-primary/20 border-primary/20' : ''
               }`}
-              style={{ animationDelay: `${index * 0.1}s` }}
+              style={{ animationDelay: `${index * 0.05}s` }}
               onClick={() => markAsRead(notification.id)}
             >
-              <CardContent className="p-4">
-                <div className="flex items-start space-x-4">
-                  <div className={`w-12 h-12 rounded-full flex items-center justify-center ${
+              <CardContent className="p-3">
+                <div className="flex items-start space-x-3">
+                  <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
                     !notification.isRead ? 'bg-primary/10' : 'bg-muted'
                   }`}>
-                    <IconComponent className={`w-6 h-6 ${getIconColor(notification.type, notification.isRead)}`} />
+                    <IconComponent className={`w-5 h-5 ${getIconColor(notification.type, notification.isRead)}`} />
                   </div>
                   
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center justify-between mb-1">
-                      <h3 className={`font-medium ${!notification.isRead ? 'text-foreground' : 'text-muted-foreground'}`}>
+                      <h3 className={`font-medium text-sm ${!notification.isRead ? 'text-foreground' : 'text-muted-foreground'}`}>
                         {notification.title}
                       </h3>
                       {!notification.isRead && (
@@ -169,12 +169,12 @@ const NotificationCenter = () => {
                       )}
                     </div>
                     
-                    <p className={`text-sm ${!notification.isRead ? 'text-foreground' : 'text-muted-foreground'} mb-2`}>
+                    <p className={`text-xs ${!notification.isRead ? 'text-foreground' : 'text-muted-foreground'} mb-2 leading-relaxed`}>
                       {notification.message}
                     </p>
                     
                     <div className="flex items-center justify-between">
-                      <Badge variant="secondary" className={getNotificationColor(notification.type)}>
+                      <Badge variant="secondary" className={`${getNotificationColor(notification.type)} text-xs`}>
                         {notification.type}
                       </Badge>
                       <span className="text-xs text-muted-foreground">
@@ -192,33 +192,33 @@ const NotificationCenter = () => {
       {/* Empty State */}
       {notifications.length === 0 && (
         <Card>
-          <CardContent className="p-8 text-center">
-            <Bell className="w-16 h-16 mx-auto mb-4 text-muted-foreground" />
-            <h3 className="font-medium mb-2">No notifications</h3>
-            <p className="text-muted-foreground">
+          <CardContent className="p-6 text-center">
+            <Bell className="w-12 h-12 mx-auto mb-3 text-muted-foreground" />
+            <h3 className="font-medium mb-2 text-sm">No notifications</h3>
+            <p className="text-muted-foreground text-xs">
               You're all caught up! We'll notify you when something important happens.
             </p>
           </CardContent>
         </Card>
       )}
 
-      {/* Notification Settings */}
+      {/* Notification Settings - Mobile optimized */}
       <Card>
-        <CardHeader>
-          <CardTitle className="text-lg">Notification Preferences</CardTitle>
+        <CardHeader className="pb-3">
+          <CardTitle className="text-base">Notification Preferences</CardTitle>
         </CardHeader>
-        <CardContent className="space-y-4">
-          <div className="grid grid-cols-2 gap-4">
-            <Button variant="outline" className="w-full">
+        <CardContent className="space-y-3">
+          <div className="grid grid-cols-2 gap-2">
+            <Button variant="outline" className="w-full text-xs">
               Transaction Alerts
             </Button>
-            <Button variant="outline" className="w-full">
+            <Button variant="outline" className="w-full text-xs">
               Security Alerts
             </Button>
-            <Button variant="outline" className="w-full">
+            <Button variant="outline" className="w-full text-xs">
               Payment Reminders
             </Button>
-            <Button variant="outline" className="w-full">
+            <Button variant="outline" className="w-full text-xs">
               Account Updates
             </Button>
           </div>

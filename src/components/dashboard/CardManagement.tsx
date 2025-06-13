@@ -78,55 +78,55 @@ const CardManagement = () => {
   };
 
   return (
-    <div className="p-4 pb-20 space-y-6 animate-fade-in">
-      {/* Header */}
+    <div className="px-3 sm:px-4 pt-3 pb-24 space-y-4 sm:space-y-6 animate-fade-in max-w-md mx-auto">
+      {/* Header - Mobile optimized */}
       <Card className="gradient-primary text-white border-0">
-        <CardHeader>
-          <CardTitle className="text-white flex items-center">
-            <CardIcon className="w-6 h-6 mr-2" />
+        <CardHeader className="pb-3">
+          <CardTitle className="text-white flex items-center text-lg">
+            <CardIcon className="w-5 h-5 mr-2" />
             Card Management
           </CardTitle>
         </CardHeader>
       </Card>
 
-      {/* Cards List */}
+      {/* Cards List - Mobile optimized */}
       <div className="space-y-4">
         {cards.map((card) => (
           <Card key={card.id} className="overflow-hidden">
-            {/* Card Visual */}
-            <div className={`p-6 text-white relative overflow-hidden ${
+            {/* Card Visual - Mobile optimized */}
+            <div className={`p-4 text-white relative overflow-hidden ${
               card.type === 'Credit' ? 'gradient-success' : 'gradient-primary'
             }`}>
-              <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -translate-y-16 translate-x-16"></div>
-              <div className="absolute bottom-0 left-0 w-24 h-24 bg-white/5 rounded-full translate-y-12 -translate-x-12"></div>
+              <div className="absolute top-0 right-0 w-24 h-24 bg-white/10 rounded-full -translate-y-12 translate-x-12"></div>
+              <div className="absolute bottom-0 left-0 w-16 h-16 bg-white/5 rounded-full translate-y-8 -translate-x-8"></div>
               
               <div className="relative z-10">
-                <div className="flex justify-between items-start mb-8">
+                <div className="flex justify-between items-start mb-6">
                   <div>
-                    <p className="text-white/80 text-sm">{card.name}</p>
-                    <Badge variant="secondary" className="mt-1">
+                    <p className="text-white/80 text-xs">{card.name}</p>
+                    <Badge variant="secondary" className="mt-1 text-xs">
                       {card.type}
                     </Badge>
                   </div>
                   <div className="text-right">
-                    <p className="text-white/80 text-sm">Balance</p>
-                    <p className="text-xl font-bold">{formatCurrency(card.balance)}</p>
+                    <p className="text-white/80 text-xs">Balance</p>
+                    <p className="text-lg font-bold">{formatCurrency(card.balance)}</p>
                   </div>
                 </div>
 
-                <div className="space-y-4">
-                  <p className="text-2xl font-mono tracking-wider">
+                <div className="space-y-3">
+                  <p className="text-lg font-mono tracking-wider">
                     {showCardDetails ? card.fullNumber : card.number}
                   </p>
                   
                   <div className="flex justify-between items-end">
                     <div>
                       <p className="text-white/60 text-xs">EXPIRES</p>
-                      <p className="font-medium">{card.expiryDate}</p>
+                      <p className="font-medium text-sm">{card.expiryDate}</p>
                     </div>
                     <div className="text-right">
                       <p className="text-white/60 text-xs">CVV</p>
-                      <p className="font-medium">
+                      <p className="font-medium text-sm">
                         {showCardDetails ? card.cvv : '***'}
                       </p>
                     </div>
@@ -134,7 +134,7 @@ const CardManagement = () => {
                       variant="ghost"
                       size="sm"
                       onClick={() => setShowCardDetails(!showCardDetails)}
-                      className="text-white hover:bg-white/20 p-2"
+                      className="text-white hover:bg-white/20 p-1"
                     >
                       {showCardDetails ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                     </Button>
@@ -143,15 +143,15 @@ const CardManagement = () => {
               </div>
             </div>
 
-            {/* Card Controls */}
-            <CardContent className="p-6 space-y-6">
+            {/* Card Controls - Mobile optimized */}
+            <CardContent className="p-4 space-y-4">
               {/* Status and Quick Actions */}
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-3">
                   <div className={`w-3 h-3 rounded-full ${
                     card.isBlocked ? 'bg-red-500' : 'bg-green-500'
                   }`}></div>
-                  <span className="font-medium">
+                  <span className="font-medium text-sm">
                     {card.isBlocked ? 'Blocked' : 'Active'}
                   </span>
                 </div>
@@ -159,26 +159,27 @@ const CardManagement = () => {
                   variant={card.isBlocked ? "default" : "destructive"}
                   size="sm"
                   onClick={() => toggleCardStatus(card.id)}
+                  className="text-xs"
                 >
                   {card.isBlocked ? (
                     <>
-                      <Unlock className="w-4 h-4 mr-2" />
+                      <Unlock className="w-3 h-3 mr-1" />
                       Unblock
                     </>
                   ) : (
                     <>
-                      <Lock className="w-4 h-4 mr-2" />
-                      Block Card
+                      <Lock className="w-3 h-3 mr-1" />
+                      Block
                     </>
                   )}
                 </Button>
               </div>
 
               {/* Spending Limit */}
-              <div className="space-y-3">
+              <div className="space-y-2">
                 <div className="flex items-center justify-between">
-                  <Label htmlFor={`limit-${card.id}`}>Daily Spending Limit</Label>
-                  <span className="text-sm text-muted-foreground">
+                  <Label htmlFor={`limit-${card.id}`} className="text-sm">Daily Spending Limit</Label>
+                  <span className="text-xs text-muted-foreground">
                     {formatCurrency(card.spendingLimit)}
                   </span>
                 </div>
@@ -187,7 +188,7 @@ const CardManagement = () => {
                     id={`limit-${card.id}`}
                     type="number"
                     placeholder="Enter new limit"
-                    className="flex-1"
+                    className="flex-1 text-sm"
                   />
                   <Button 
                     size="sm"
@@ -199,6 +200,7 @@ const CardManagement = () => {
                         input.value = '';
                       }
                     }}
+                    className="text-xs"
                   >
                     Update
                   </Button>
@@ -206,41 +208,41 @@ const CardManagement = () => {
               </div>
 
               {/* Card Settings */}
-              <div className="space-y-4">
-                <h4 className="font-medium flex items-center">
+              <div className="space-y-3">
+                <h4 className="font-medium flex items-center text-sm">
                   <Settings className="w-4 h-4 mr-2" />
                   Card Settings
                 </h4>
                 
                 <div className="space-y-3">
                   <div className="flex items-center justify-between">
-                    <Label htmlFor={`notifications-${card.id}`}>Transaction Notifications</Label>
+                    <Label htmlFor={`notifications-${card.id}`} className="text-sm">Transaction Notifications</Label>
                     <Switch id={`notifications-${card.id}`} defaultChecked />
                   </div>
                   
                   <div className="flex items-center justify-between">
-                    <Label htmlFor={`international-${card.id}`}>International Transactions</Label>
+                    <Label htmlFor={`international-${card.id}`} className="text-sm">International Transactions</Label>
                     <Switch id={`international-${card.id}`} defaultChecked />
                   </div>
                   
                   <div className="flex items-center justify-between">
-                    <Label htmlFor={`online-${card.id}`}>Online Purchases</Label>
+                    <Label htmlFor={`online-${card.id}`} className="text-sm">Online Purchases</Label>
                     <Switch id={`online-${card.id}`} defaultChecked />
                   </div>
                   
                   <div className="flex items-center justify-between">
-                    <Label htmlFor={`contactless-${card.id}`}>Contactless Payments</Label>
+                    <Label htmlFor={`contactless-${card.id}`} className="text-sm">Contactless Payments</Label>
                     <Switch id={`contactless-${card.id}`} defaultChecked />
                   </div>
                 </div>
               </div>
 
               {/* Action Buttons */}
-              <div className="grid grid-cols-2 gap-3 pt-4">
-                <Button variant="outline" className="w-full">
+              <div className="grid grid-cols-2 gap-3 pt-2">
+                <Button variant="outline" className="w-full text-xs">
                   Replace Card
                 </Button>
-                <Button variant="outline" className="w-full">
+                <Button variant="outline" className="w-full text-xs">
                   View Statements
                 </Button>
               </div>
@@ -249,15 +251,15 @@ const CardManagement = () => {
         ))}
       </div>
 
-      {/* Add New Card */}
+      {/* Add New Card - Mobile optimized */}
       <Card className="border-dashed border-2 hover:border-primary transition-colors cursor-pointer">
-        <CardContent className="p-8 text-center">
-          <CardIcon className="w-12 h-12 mx-auto mb-4 text-muted-foreground" />
-          <h3 className="font-medium mb-2">Add New Card</h3>
-          <p className="text-sm text-muted-foreground mb-4">
+        <CardContent className="p-6 text-center">
+          <CardIcon className="w-10 h-10 mx-auto mb-3 text-muted-foreground" />
+          <h3 className="font-medium mb-2 text-sm">Add New Card</h3>
+          <p className="text-xs text-muted-foreground mb-3">
             Apply for a new debit or credit card
           </p>
-          <Button variant="outline">Apply Now</Button>
+          <Button variant="outline" className="text-xs">Apply Now</Button>
         </CardContent>
       </Card>
     </div>
